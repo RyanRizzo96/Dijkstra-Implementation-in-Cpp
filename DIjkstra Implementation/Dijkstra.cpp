@@ -1,10 +1,20 @@
 //Dijkstra Implementation
+//File Sample Input: 
+//6			--> number of nodes
+//1 3 3		--> Node 1 to 3 with weight 3
+//2 4 1		--> Node 2 to 4 with weight 1
+//2 5 3		--> Node 2 to 5 with weight 3
+//3 2 2		--> Node 3 to 2 with weight 2
+//3 5 1		--> Node 3 to 5 with weight 1
+//5 6 6		--> Node 5 to 6 with weight 6
+//File Sample Output:
+// 0 5 3 6 4 10
+
 
 #include "C:/Program Files/VS2012Schemas/header.txt"	//directory
 
-//using namespace std;
+using namespace std;
 
-//reading input file
 
 //Declare an input file stream (ifstream) variable.
 ifstream inFile;
