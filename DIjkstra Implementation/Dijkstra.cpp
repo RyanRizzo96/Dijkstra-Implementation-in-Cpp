@@ -1,11 +1,15 @@
 //Dijkstra Implementation
 
-#include <iostream>	
-#include <fstream>
+#include "C:/Program Files/VS2012Schemas/header.txt"	//directory
 
 using namespace std;
 
-ifstream fin("a.in");	//input file
+//reading input file
+//ifstream fin("a.in");	//'.in' means input extension
+
+//Declare an input file stream (ifstream) variable.
+ifstream inFile;
+
 
 int N;					//number of nodes
 int a, b, w;			//Node a to Node b and weight w
@@ -41,12 +45,26 @@ int dij(int x) {
 		dij(smaller);
 		return 0;
 	}
-	//return 0;
+	return 0;
+	
 }
 
 int main() {
+
+	//Open the file stream. Path names in MS Windows use backslashes (\). Because the backslash is also the string escape character, 
+	//it must be doubled. If the full path is not given, most systems will look in the directory that contains the object program.
+	//IMPORTANT: double '\\' in beginning of path!!
+	inFile.open("C:\\Users\ryanr\Desktop\MCAST Degree 2\Engineering Project (2)\DIjkstra\DIjkstra Implementation\Dijkstra.txt");
+
+	//Check that the file was opened.For example, the open fails if the file doesn't exist, or if it can't be read 
+	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
+	if (!inFile) {
+		cerr << "Unable to open file";
+		exit(1);   // call system to stop
+	}
+
 	//reading number of nodes
-	fin >> N;
+	inFile >> N;
 	
 	for (int i = 0; i <= N; i++) {
 		for (int j = 0; j <= N; j++) {
@@ -62,8 +80,8 @@ int main() {
 	//initializing root
 	distances[1] = 0;		//distance of 1 set to 0
 
-	while (!fin.eof()) {	//reading till end of file 
-		fin >> a >> b >> w;
+	while (!inFile.eof()) {	//reading till end of file 
+		inFile >> a >> b >> w;
 		am[a][b] = w;		//updating matrix
 		am[a][b] = w;
 	}
@@ -75,4 +93,6 @@ int main() {
 	for (int i = 1; i <= N; i++) {
 		cout << distances[i] << " ";
 	}
+	//keep_window_open();
+	
 }
