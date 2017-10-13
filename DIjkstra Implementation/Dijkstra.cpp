@@ -7,9 +7,14 @@
 //3 2 2		--> Node 3 to 2 with weight 2
 //3 5 1		--> Node 3 to 5 with weight 1
 //5 6 6		--> Node 5 to 6 with weight 6
-//File Sample Output:
+//File Sample Output: (distance from node 1 to node 1, 2, 3, 4, 5 and 6 respectively)
 // 0 5 3 6 4 10
-
+//Node 1 to node 1: 0
+//Node 1 to node 2: 5	
+//Node 1 to node 3: 3
+//Node 1 to node 4: 6
+//Node 1 to node 5: 4
+//Node 1 to node 6: 10
 
 #include "C:/Program Files/VS2012Schemas/header.txt"	//directory
 
