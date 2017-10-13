@@ -1,6 +1,6 @@
 //Dijkstra Implementation
 //File Sample Input: 
-//6			--> number of nodes
+//6		--> number of nodes
 //1 3 3		--> Node 1 to 3 with weight 3
 //2 4 1		--> Node 2 to 4 with weight 1
 //2 5 3		--> Node 2 to 5 with weight 3
