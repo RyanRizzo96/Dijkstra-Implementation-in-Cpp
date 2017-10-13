@@ -5,11 +5,9 @@
 using namespace std;
 
 //reading input file
-//ifstream fin("a.in");	//'.in' means input extension
 
 //Declare an input file stream (ifstream) variable.
 ifstream inFile;
-
 
 int N;					//number of nodes
 int a, b, w;			//Node a to Node b and weight w
@@ -54,12 +52,12 @@ int main() {
 	//Open the file stream. Path names in MS Windows use backslashes (\). Because the backslash is also the string escape character, 
 	//it must be doubled. If the full path is not given, most systems will look in the directory that contains the object program.
 	//IMPORTANT: double '\\' in beginning of path!!
-	inFile.open("C:\\Users\ryanr\Desktop\MCAST Degree 2\Engineering Project (2)\DIjkstra\DIjkstra Implementation\Dijkstra.txt");
+	inFile.open("C:\\Users\ryanr\Desktop\MCAST Degree 2\Engineering Project (2)\DIjkstra\DIjkstra Implementation\dijkstra.txt");
 
 	//Check that the file was opened.For example, the open fails if the file doesn't exist, or if it can't be read 
 	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
 	if (!inFile) {
-		cerr << "Unable to open file";
+		cerr << "Unable to open file \n";
 		exit(1);   // call system to stop
 	}
 
