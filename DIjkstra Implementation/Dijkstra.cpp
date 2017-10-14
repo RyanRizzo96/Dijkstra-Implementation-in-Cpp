@@ -20,27 +20,27 @@
 
 using namespace std;
 
-
 //Declare an input file stream (ifstream) variable.
 ifstream inFile;
 
 int N;					//number of nodes
 int a, b, w;			//Node a to Node b and weight w
-int am[100][100];
+int node_matrix[100][100];		//2D node matrix
 int distances[100];		//1-D array distance
 int visited[100];		//Set initally to 0
 
 //dijkstra function. gets current node
-int dij(int x) {
+int dijkstra(int x) {
 	visited[x] = 1;		//sets current node as visited, marked as 1. They were all 0 before
 
 	//updates the nodes
-	for (int i = 1; i <= N; i++) {		//for all the nodes
+	for (int i = 1; i <= N; i++) {		//for all the nodes (1 to 6)
 		//check if they are not visited and they are connected
-		if ((visited[i] == 0) && (am[x][i] != -1)) {		
-			//if distance of x + matrix is more than the distance that i already has or if distance of i is infinity, update
-			if ((distances[x] + am[x][i] < distances[i]) || (distances[i] == -1)) {
-				distances[i] = distances[x] + am[x][i];		//update i
+		if ((visited[i] == 0) && (node_matrix[x][i] != -1)) {		
+			//if distancefrom node 1 (0) + distance in node matrix of node + next node is less than the distance in the distances array then this is the new shortest path, update
+			//OR if distance in array distance is -1, update aswell. This will be true for the first round.
+			if ((distances[x] + node_matrix[x][i] < distances[i]) || (distances[i] == -1)) {
+				distances[i] = distances[x] + node_matrix[x][i];		//update i
 			}
 		}
 	}
@@ -48,15 +48,15 @@ int dij(int x) {
 	int smaller = -1, smaller_weight = -1;
 	//for all the nodes, going to check which will be the next node
 	for (int i = 0; i <= N; i++) {
-		//node should not be visited and the distane should be greater than 0. smaller_weight should be bigger than current distance or esle equal to -1
+		//node should not be visited and the distane should be greater than 0. smaller_weight should be bigger than current distance or else equal to -1
 		if ((visited[i] == 0) && (distances[i] >= 0) && ((smaller_weight > distances[i]) || (smaller_weight == -1))) {
-			smaller_weight = distances[i];	//
-			smaller = i;
+			smaller_weight = distances[i];	//distance from node 1 to 2 is now the smallest distance
+			smaller = i;					//smaller node is now 2
 		}
 	}
 
 	if (smaller != -1) {
-		dij(smaller);
+		dijkstra(smaller);
 		return 0;
 	}
 	return 0;
@@ -73,16 +73,16 @@ int main() {
 	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
 	if (!inFile) {
 		cerr << "Unable to open file \n";
-		cout << errno;
-		exit(1);   // call system to stop
+		cout << errno;	//call errno to give more insight reagrding the error
+		exit(1);		// call system to stop
 	}
 
 	//reading number of nodes
 	inFile >> N;
-	
+	//for all nodes fill in node_matrix and set to -1
 	for (int i = 0; i <= N; i++) {
 		for (int j = 0; j <= N; j++) {
-			am[i][j] = -1;	//setting all to -1 meaning there is no connection between nodes
+			node_matrix[i][j] = -1;	//setting all to -1 meaning there is no connection between nodes
 		}
 	}
 
@@ -96,12 +96,14 @@ int main() {
 
 	while (!inFile.eof()) {	//reading till end of file 
 		inFile >> a >> b >> w;
-		am[a][b] = w;		//updating matrix
-		am[a][b] = w;
+		node_matrix[a][b] = w;		//updating matrix
+		//this line is vital for correct functionality.
+		//make sure to update both paths TO and FROM each node
+		node_matrix[b][a] = w;		
 	}
 
 	//running dijkstra function
-	dij(1);
+	dijkstra(1);
 	
 	//output
 	for (int i = 1; i <= N; i++) {
