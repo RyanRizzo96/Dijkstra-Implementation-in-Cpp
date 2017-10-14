@@ -23,9 +23,9 @@ using namespace std;
 //Declare an input file stream (ifstream) variable.
 ifstream inFile;
 
-int N;					//number of nodes
+int N;				//number of nodes
 int a, b, w;			//Node a to Node b and weight w
-int node_matrix[100][100];		//2D node matrix
+int node_matrix[100][100];	//2D node matrix
 int distances[100];		//1-D array distance
 int visited[100];		//Set initally to 0
 
@@ -45,18 +45,18 @@ int dijkstra(int x) {
 		}
 	}
 	//after updating all the nodes, we are going to select a new node
-	int smaller = -1, smaller_weight = -1;
+	int new_node = -1, smaller_weight = -1;
 	//for all the nodes, going to check which will be the next node
 	for (int i = 0; i <= N; i++) {
-		//node should not be visited and the distane should be greater than 0. smaller_weight should be bigger than current distance or else equal to -1
+		//node should not be visited and the distance should be greater than 0. smaller_weight should be bigger than current distance or else equal to -1
 		if ((visited[i] == 0) && (distances[i] >= 0) && ((smaller_weight > distances[i]) || (smaller_weight == -1))) {
-			smaller_weight = distances[i];	//distance from node 1 to 2 is now the smallest distance
-			smaller = i;					//smaller node is now 2
+			smaller_weight = distances[i];	//distance from node 1 to 2 is now the smallest weight
+			new_node = i;					//smaller node is now 4
 		}
 	}
 
-	if (smaller != -1) {
-		dijkstra(smaller);
+	if (new_node != -1) {
+		dijkstra(new_node); //run dijkstra function with new node. First run new node will be 4
 		return 0;
 	}
 	return 0;
@@ -73,7 +73,7 @@ int main() {
 	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
 	if (!inFile) {
 		cerr << "Unable to open file \n";
-		cout << errno;	//call errno to give more insight reagrding the error
+		cout << errno;		//call errno to give more insight reagrding the error
 		exit(1);		// call system to stop
 	}
 
