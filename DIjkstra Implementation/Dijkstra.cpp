@@ -26,6 +26,7 @@ ifstream inFile;
 int N;				//number of nodes
 int a, b, w;			//Node a to Node b and weight w
 int node_matrix[100][100];	//2D node matrix
+int path_matrix[100][100];	//2D matrix to store paths
 int distances[100];		//1-D array distance
 int visited[100];		//Set initally to 0
 
@@ -41,6 +42,13 @@ int dijkstra(int x) {
 			//OR if distance in array distance is -1, update aswell. This will be true for the first round.
 			if ((distances[x] + node_matrix[x][i] < distances[i]) || (distances[i] == -1)) {
 				distances[i] = distances[x] + node_matrix[x][i];		//update i
+				//here we are storing shortest path.
+				//the for loop goes through the columns setting all longer distances to 0, therefore we are left only with the node with the shortest distance
+				for (int j = 1; j <= N; j++) {
+					path_matrix[j][i] = 0;
+				}
+				//update node with shortest distance
+				path_matrix[x][i] = i;
 			}
 		}
 	}
@@ -51,7 +59,7 @@ int dijkstra(int x) {
 		//node should not be visited and the distance should be greater than 0. smaller_weight should be bigger than current distance or else equal to -1
 		if ((visited[i] == 0) && (distances[i] >= 0) && ((smaller_weight > distances[i]) || (smaller_weight == -1))) {
 			smaller_weight = distances[i];	//distance from node 1 to 2 is now the smallest weight
-			new_node = i;					//smaller node is now 4
+			new_node = i;					//new node is now 4
 		}
 	}
 
@@ -83,6 +91,7 @@ int main() {
 	for (int i = 0; i <= N; i++) {
 		for (int j = 0; j <= N; j++) {
 			node_matrix[i][j] = -1;	//setting all to -1 meaning there is no connection between nodes
+			path_matrix[i][j] = 0;	//no path establsihed.
 		}
 	}
 
@@ -107,8 +116,35 @@ int main() {
 	
 	//output
 	for (int i = 1; i <= N; i++) {
-		cout << distances[i] << " ";
+		cout <<"Distance from Node 1 to Node " << i << " is: " << distances[i] << endl;
 	}
-	//keep_window_open();
-	
+	cout << endl;
+
+	int i = 0;
+	for (int row_node = 1; row_node <= N; row_node++) {
+		for (int col_path = 1; col_path <= N; col_path++) {
+			if (i % 5 == 0) {
+				cout << endl;
+			}
+			i++;
+			cout << path_matrix[row_node][col_path];
+		}
+	}
+	cout << endl;
+	cout << endl;
+
+	for (int row_node = 1; row_node <= N; row_node++) {
+		for (int col_path = 1; col_path <= N; col_path++) {
+			if(path_matrix[row_node][col_path] != 0) {
+				if (row_node == 1) {
+					//cout << path_matrix[row_node][col_path] << " <- " << col_path << endl;
+					cout << row_node<< " -> " << path_matrix[row_node][col_path] << endl;
+				}
+				else {
+					//cout << path_matrix[row_node][col_path] << " <- " << col_path << " <- 1" << endl;
+					cout << "1 -> " << row_node << " -> " << path_matrix[row_node][col_path] << endl;
+				}
+			}
+		}
+	}
 }
