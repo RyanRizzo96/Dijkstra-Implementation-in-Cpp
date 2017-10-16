@@ -31,8 +31,10 @@ int distances[100];		//1-D array distance
 int visited[100];		//Set initally to 0
 vector<int> path;
 
-//dijkstra function. gets current node
+
 int dijkstra(int x) {
+//dijkstra function. gets current node
+
 	visited[x] = 1;		//sets current node as visited, marked as 1. They were all 0 before
 
 						//updates the nodes
@@ -74,9 +76,11 @@ int dijkstra(int x) {
 	return 0;
 }
 
+
+void printPaths() {
 //This function needs to be improved. I am merely printing the paths and not saving them in any way. These paths need to be stored separately, but permanently
 //during the running of the program, such that the robot may have access to them at any moment.
-void printPaths() {
+
 	//extracting shortest paths from path_matrix
 	int preservedNodeState = 0;
 	for (int searchNodePath = N; searchNodePath >= 1; searchNodePath--) { //rows
@@ -100,9 +104,11 @@ void printPaths() {
 						}
 					}
 				}
+				//reversing path vector to start from node 1.
+				reverse(path.begin(), path.end());
 				//print out the path vector. path.size() gives current vector size.
 				for (int i = 0; i < path.size(); i++) {
-					cout << path[i] << " ";
+					cout << path[i] << "  ";
 				}
 				cout << endl;
 				//.clear() removes all elements of the current path, since we are now starting a new path
