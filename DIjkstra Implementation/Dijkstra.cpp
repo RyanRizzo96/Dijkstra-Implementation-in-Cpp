@@ -74,6 +74,45 @@ int dijkstra(int x) {
 	return 0;
 }
 
+int printPaths() {
+	//extracting shortest paths from path_matrix
+	int preservedNodeState = 0;
+	for (int searchNodePath = N; searchNodePath >= 1; searchNodePath--) { //rows
+		for (int col_path = N; col_path >= 1; col_path--) {
+			if (path_matrix[searchNodePath][col_path] != 0) {
+
+				path.push_back(path_matrix[searchNodePath][col_path]);
+				path.push_back(searchNodePath);
+
+				//save the searchNodePath row we are currently on as we will be altering this in the following loop.
+				preservedNodeState = searchNodePath;
+
+				for (int row_previousNode = N; row_previousNode >= 1; row_previousNode--) {
+					for (int col_path2 = N; col_path2 >= 1; col_path2--) {
+						if (path_matrix[row_previousNode][col_path2] == searchNodePath) {
+							path.push_back(row_previousNode);
+							//in order to keep on searching through the path matrix
+							searchNodePath = row_previousNode; //set row_previousNode which is the previous node in the path to row_searchnodePath which we are looking for
+							row_previousNode = N; //reset row_node2 to number of nodes present, to start search from beginning
+							col_path2 = N; //reset col_path2 to number of nodes present, to start search from beginning
+						}
+					}
+				}
+				//print out the path vector. path.size() gives current vector size.
+				for (int i = 0; i < path.size(); i++) {
+					cout << path[i] << " ";
+				}
+				cout << endl;
+				//.clear() removes all elements of the current path, since we are now starting a new path
+				path.clear();
+				//the searchNodePath which was altered, now retains its value in the original pathMatrix
+				searchNodePath = preservedNodeState;
+			}
+		}
+	}
+	return 0;
+}
+
 int main() {
 
 	//Open the file stream. Path names in MS Windows use backslashes (\). Because the backslash is also the string escape character, 
@@ -139,40 +178,6 @@ int main() {
 	cout << endl;
 	cout << endl;
 
-	/* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ **/
-	//extracting shortest paths from path_matrix
-	int preservedNodeState = 0;
-	for (int searchNodePath = N; searchNodePath >= 1; searchNodePath--) { //rows
-		for (int col_path = N; col_path >= 1; col_path--) {
-			if (path_matrix[searchNodePath][col_path] != 0) {
-
-				path.push_back(path_matrix[searchNodePath][col_path]);
-				path.push_back(searchNodePath);
-
-				//save the searchNodePath row we are currently on as we will be altering this in the following loop.
-				preservedNodeState = searchNodePath;
-
-				for (int row_previousNode = N; row_previousNode >= 1; row_previousNode--) {
-					for (int col_path2 = N; col_path2 >= 1; col_path2--) {
-						if (path_matrix[row_previousNode][col_path2] == searchNodePath) {
-							path.push_back(row_previousNode);
-							//in order to keep on searching through the path matrix
-							searchNodePath = row_previousNode; //set row_previousNode which is the previous node in the path to row_searchnodePath which we are looking for
-							row_previousNode = N; //reset row_node2 to number of nodes present, to start search from beginning
-							col_path2 = N; //reset col_path2 to number of nodes present, to start search from beginning
-						}
-					}
-				}
-				//print out the path vector. path.size() gives current vector size.
-				for (int i = 0; i < path.size(); i++) {
-					cout << path[i] << " ";
-				}
-				cout << endl;
-				//.clear() removes all elements of the current path, since we are now starting a new path
-				path.clear();
-				//the searchNodePath which was altered, now retains its value in the original pathMatrix
-				searchNodePath = preservedNodeState;
-			}
-		}
-	}
+	//function to print paths
+	printPaths();
 }
