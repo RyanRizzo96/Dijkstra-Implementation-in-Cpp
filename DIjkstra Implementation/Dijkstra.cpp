@@ -25,12 +25,11 @@ ifstream inFile;
 
 int N;				//number of nodes
 int a, b, w;			//Node a to Node b and weight w
-int node_matrix[100][100];	//2D node matrix
-int path_matrix[100][100];	//2D matrix to store paths
-int distances[100];		//1-D array distance
-int visited[100];		//Set initally to 0
+int node_matrix[10][10];	//2D node matrix
+int path_matrix[10][10];	//2D matrix to store paths
+int distances[10];		//1-D array distance
+int visited[10];		//Set initally to 0
 vector<int> path;
-
 
 int dijkstra(int x) {
 //dijkstra function. gets current node
@@ -38,7 +37,7 @@ int dijkstra(int x) {
 	visited[x] = 1;		//sets current node as visited, marked as 1. They were all 0 before
 
 						//updates the nodes
-	for (int i = 1; i <= N; i++) {		//for all the nodes (1 to 6)
+	for (int i = 1; i <= N; i++) {		//for all the nodes 
 										//check if they are not visited and they are connected
 		if ((visited[i] == 0) && (node_matrix[x][i] != -1)) {
 			//if distancefrom node 1 (0) + distance in node matrix of node + next node is less than the distance in the distances array then this is the new shortest path, update
@@ -75,7 +74,6 @@ int dijkstra(int x) {
 	}
 	return 0;
 }
-
 
 void printPaths() {
 //This function needs to be improved. I am merely printing the paths and not saving them in any way. These paths need to be stored separately, but permanently
@@ -126,7 +124,7 @@ int main() {
 	//Open the file stream. Path names in MS Windows use backslashes (\). Because the backslash is also the string escape character, 
 	//it must be doubled. If the full path is not given, most systems will look in the directory that contains the object program.
 
-	inFile.open("C:\\Users\\ryanr\\Desktop\\MCAST Degree 2\\Engineering Project (2)\\DIjkstra\\DIjkstra Implementation\\dijkstra.txt");
+	inFile.open("C:\\Users\\ryanr\\Desktop\\MCAST Degree 2\\Engineering Project (2)\\DIjkstra\\DIjkstra Implementation\\dijkstra2.txt");
 
 	//Check that the file was opened.For example, the open fails if the file doesn't exist, or if it can't be read 
 	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
