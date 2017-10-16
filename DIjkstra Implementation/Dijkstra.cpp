@@ -74,7 +74,9 @@ int dijkstra(int x) {
 	return 0;
 }
 
-int printPaths() {
+//This function needs to be improved. I am merely printing the paths and not saving them in any way. These paths need to be stored separately, but permanently
+//during the running of the program, such that the robot may have access to them at any moment.
+void printPaths() {
 	//extracting shortest paths from path_matrix
 	int preservedNodeState = 0;
 	for (int searchNodePath = N; searchNodePath >= 1; searchNodePath--) { //rows
@@ -104,13 +106,13 @@ int printPaths() {
 				}
 				cout << endl;
 				//.clear() removes all elements of the current path, since we are now starting a new path
+				//future improvement: store current path here!!
 				path.clear();
 				//the searchNodePath which was altered, now retains its value in the original pathMatrix
 				searchNodePath = preservedNodeState;
 			}
 		}
 	}
-	return 0;
 }
 
 int main() {
@@ -163,21 +165,21 @@ int main() {
 	}
 	cout << endl;
 
-	//the following loop prints out the path_matrix which was used to extract all the shortest paths.
-	//there is enough information in the path matrix to extract the shortest path, however doing so was a problem we encountered.
-	int i = 0;
-	for (int row_node = 1; row_node <= N; row_node++) {
-		for (int col_path = 1; col_path <= N; col_path++) {
-			if (i % 7 == 0) {
-				cout << endl;
-			}
-			i++;
-			cout << path_matrix[row_node][col_path];
-		}
-	}
-	cout << endl;
-	cout << endl;
-
 	//function to print paths
 	printPaths();
 }
+
+//the following loop prints out the path_matrix which was used to extract all the shortest paths.
+//there is enough information in the path matrix to extract the shortest path, however doing so was a problem we encountered.
+//int i = 0;
+//for (int row_node = 1; row_node <= N; row_node++) {
+//	for (int col_path = 1; col_path <= N; col_path++) {
+//		if (i % 7 == 0) {
+//			cout << endl;
+//		}
+//		i++;
+//		cout << path_matrix[row_node][col_path];
+//	}
+//}
+//cout << endl;
+//cout << endl;
