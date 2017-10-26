@@ -1,21 +1,5 @@
 //Dijkstra Implementation
-//File Sample Input: 
-//6		--> number of nodes
-//1 3 3		--> Node 1 to 3 with weight 3
-//2 4 1		--> Node 2 to 4 with weight 1
-//2 5 3		--> Node 2 to 5 with weight 3
-//3 2 2		--> Node 3 to 2 with weight 2
-//3 5 1		--> Node 3 to 5 with weight 1
-//5 6 6		--> Node 5 to 6 with weight 6
-//File Sample Output: (distance from node 1 to node 1, 2, 3, 4, 5 and 6 respectively)
-// 0 5 3 6 4 10
-//Node 1 to node 1: 0
-//Node 1 to node 2: 5	
-//Node 1 to node 3: 3
-//Node 1 to node 4: 6
-//Node 1 to node 5: 4
-//Node 1 to node 6: 10
-
+ 
 //#include "C:/Program Files/VS2012Schemas/header.txt"	//directory
 #include <iostream>
 #include <vector>
@@ -23,7 +7,8 @@
 
 using namespace std;
 
-//Declare an input file stream (ifstream) variable.
+//Declare an input and output file stream (ifstream) (ofstream) variable.
+ofstream outFile;
 ifstream inFile;
 
 int N;				//number of nodes
@@ -33,8 +18,56 @@ int path_matrix[10][10];	//2D matrix to store paths
 int distances[10];		//1-D array distance
 int visited[10];		//Set initally to 0
 int finish_node;
+int print_node;
+
 vector<int> extracted_path;
 vector<vector<int>> all_paths(7,  vector<int> (10));
+
+void writeFile() {
+
+}
+
+void readFile() {
+	//Open the file stream. Path names in MS Windows use backslashes (\). Because the backslash is also the string escape character, 
+	//it must be doubled. If the full path is not given, most systems will look in the directory that contains the object program.
+
+	inFile.open("C:\\Users\\ryanr\\Desktop\\MCAST Degree 2\\Engineering Project (2)\\DIjkstra\\DIjkstra Implementation\\dijkstra2.txt");
+
+	//Check that the file was opened.For example, the open fails if the file doesn't exist, or if it can't be read 
+	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
+	if (!inFile) {
+		cerr << "Unable to open file \n";
+		cout << errno;		//call errno to give more insight reagrding the error
+		exit(1);		// call system to stop
+	}
+
+	//reading number of nodes
+	inFile >> N;
+
+	//for all nodes fill in node_matrix and set to -1
+	for (int i = 0; i <= N; i++) {
+		for (int j = 0; j <= N; j++) {
+			node_matrix[i][j] = -1;	//setting all to -1 meaning there is no connection between nodes
+			path_matrix[i][j] = 0;	//no path establsihed.
+		}
+	}
+
+	//initializing distance
+	for (int i = 0; i <= N; i++) {
+		distances[i] = -1;	//setting distance to -1 (or infinity)
+	}
+
+	//initializing root
+	distances[1] = 0;		//distance of 1 set to 0
+
+	while (!inFile.eof()) {	//reading till end of file 
+		inFile >> a >> b >> w;
+		node_matrix[a][b] = w;		//updating matrix
+									//this line is vital for correct functionality.
+									//make sure to update both paths TO and FROM each node
+		node_matrix[b][a] = w;
+	}
+}
 
 int dijkstra(int x) {
 //dijkstra function. gets current node
@@ -75,6 +108,12 @@ int dijkstra(int x) {
 		dijkstra(new_node); //run dijkstra function with new node. First run new node will be 4
 		return 0;
 	}
+
+	//output
+	for (int i = 1; i <= N; i++) {
+		cout << "Distance from Node 1 to Node " << i << " is: " << distances[i] << endl;
+	}
+
 	return 0;
 }
 
@@ -175,53 +214,11 @@ void printPaths() {
 
 int main() {
 
-	int print_node;
-	//Open the file stream. Path names in MS Windows use backslashes (\). Because the backslash is also the string escape character, 
-	//it must be doubled. If the full path is not given, most systems will look in the directory that contains the object program.
-
-	inFile.open("C:\\Users\\ryanr\\Desktop\\MCAST Degree 2\\Engineering Project (2)\\DIjkstra\\DIjkstra Implementation\\dijkstra.txt");
-
-	//Check that the file was opened.For example, the open fails if the file doesn't exist, or if it can't be read 
-	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
-	if (!inFile) {
-		cerr << "Unable to open file \n";
-		cout << errno;		//call errno to give more insight reagrding the error
-		exit(1);		// call system to stop
-	}
-
-	//reading number of nodes
-	inFile >> N;
-	//for all nodes fill in node_matrix and set to -1
-	for (int i = 0; i <= N; i++) {
-		for (int j = 0; j <= N; j++) {
-			node_matrix[i][j] = -1;	//setting all to -1 meaning there is no connection between nodes
-			path_matrix[i][j] = 0;	//no path establsihed.
-		}
-	}
-
-	//initializing distance
-	for (int i = 0; i <= N; i++) {
-		distances[i] = -1;	//setting distance to -1 (or infinity)
-	}
-
-	//initializing root
-	distances[1] = 0;		//distance of 1 set to 0
-
-	while (!inFile.eof()) {	//reading till end of file 
-		inFile >> a >> b >> w;
-		node_matrix[a][b] = w;		//updating matrix
-									//this line is vital for correct functionality.
-									//make sure to update both paths TO and FROM each node
-		node_matrix[b][a] = w;
-	}
+	//reading from file and setting matrices accordingly
+	readFile();
 
 	//running dijkstra function
 	dijkstra(1);
-
-	//output
-	for (int i = 1; i <= N; i++) {
-		cout << "Distance from Node 1 to Node " << i << " is: " << distances[i] << endl;
-	}
 
 	//function to print paths
 	printPaths();
