@@ -16,7 +16,10 @@
 //Node 1 to node 5: 4
 //Node 1 to node 6: 10
 
-#include "C:/Program Files/VS2012Schemas/header.txt"	//directory
+//#include "C:/Program Files/VS2012Schemas/header.txt"	//directory
+#include <iostream>
+#include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -29,7 +32,9 @@ int node_matrix[10][10];	//2D node matrix
 int path_matrix[10][10];	//2D matrix to store paths
 int distances[10];		//1-D array distance
 int visited[10];		//Set initally to 0
-vector<int> path;
+int finish_node;
+vector<int> extracted_path;
+vector<vector<int>> all_paths(7,  vector<int> (10));
 
 int dijkstra(int x) {
 //dijkstra function. gets current node
@@ -52,10 +57,8 @@ int dijkstra(int x) {
 				//update node with shortest distance
 				path_matrix[x][i] = i;
 			}
-
 		}
 	}
-
 
 	//after updating all the nodes, we are going to select a new node
 	int new_node = -1, smaller_weight = -1;
@@ -79,14 +82,19 @@ void printPaths() {
 //This function needs to be improved. I am merely printing the paths and not saving them in any way. These paths need to be stored separately, but permanently
 //during the running of the program, such that the robot may have access to them at any moment.
 
+	int clear_count = 0;
+	all_paths[0].clear();
+	all_paths[0].push_back(1);
+
 	//extracting shortest paths from path_matrix
+	
 	int preservedNodeState = 0;
 	for (int searchNodePath = N; searchNodePath >= 1; searchNodePath--) { //rows
 		for (int col_path = N; col_path >= 1; col_path--) {
 			if (path_matrix[searchNodePath][col_path] != 0) {
 
-				path.push_back(path_matrix[searchNodePath][col_path]);
-				path.push_back(searchNodePath);
+				extracted_path.push_back(path_matrix[searchNodePath][col_path]);
+				extracted_path.push_back(searchNodePath);
 
 				//save the searchNodePath row we are currently on as we will be altering this in the following loop.
 				preservedNodeState = searchNodePath;
@@ -94,7 +102,7 @@ void printPaths() {
 				for (int row_previousNode = N; row_previousNode >= 1; row_previousNode--) {
 					for (int col_path2 = N; col_path2 >= 1; col_path2--) {
 						if (path_matrix[row_previousNode][col_path2] == searchNodePath) {
-							path.push_back(row_previousNode);
+							extracted_path.push_back(row_previousNode);
 							//in order to keep on searching through the path matrix
 							searchNodePath = row_previousNode; //set row_previousNode which is the previous node in the path to row_searchnodePath which we are looking for
 							row_previousNode = N; //reset row_node2 to number of nodes present, to start search from beginning
@@ -102,29 +110,76 @@ void printPaths() {
 						}
 					}
 				}
+
 				//reversing path vector to start from node 1.
-				reverse(path.begin(), path.end());
-				//print out the path vector. path.size() gives current vector size.
-				for (int i = 0; i < path.size(); i++) {
-					cout << path[i] << "  ";
+				reverse(extracted_path.begin(), extracted_path.end());
+				finish_node = extracted_path.back();
+
+				if (finish_node == 2) {
+					all_paths[finish_node - 1].clear();
+					for (int i = 0; i < extracted_path.size(); i++) {
+						all_paths[finish_node - 1].push_back(extracted_path[i]);
+					}
 				}
-				cout << endl;
-				//.clear() removes all elements of the current path, since we are now starting a new path
-				//future improvement: store current path here!!
-				path.clear();
+				if (finish_node == 3) {
+					all_paths[finish_node - 1].clear();
+					for (int i = 0; i < extracted_path.size(); i++) {
+						all_paths[finish_node - 1].push_back(extracted_path[i]);
+					}
+				}
+				if (finish_node == 4) {
+					all_paths[finish_node - 1].clear();
+					for (int i = 0; i < extracted_path.size(); i++) {
+						all_paths[finish_node - 1].push_back(extracted_path[i]);
+					}
+				}
+				if (finish_node == 5) {
+					all_paths[finish_node - 1].clear();
+					for (int i = 0; i < extracted_path.size(); i++) {
+						all_paths[finish_node - 1].push_back(extracted_path[i]);
+					}
+				}
+				if (finish_node == 6) {
+					all_paths[finish_node - 1].clear();
+					for (int i = 0; i < extracted_path.size(); i++) {
+						all_paths[finish_node - 1].push_back(extracted_path[i]);
+					}
+				}
+				if (finish_node == 7) {
+					all_paths[finish_node -1].clear();
+					for (int i = 0; i < extracted_path.size(); i++) {
+						all_paths[finish_node - 1].push_back(extracted_path[i]);
+					}
+				}
+
+				//.clear() removes all elements of the current path, since we are now starting a new path			
+				extracted_path.clear();
+				clear_count++;
 				//the searchNodePath which was altered, now retains its value in the original pathMatrix
 				searchNodePath = preservedNodeState;
 			}
 		}
 	}
+
+	cout << endl;
+	for (int i = 0; i < all_paths.size(); ++i)
+	{
+		for (int j = 0; j < all_paths[i].size(); ++j)
+		{
+			cout << all_paths[i][j];
+		}
+		cout <<endl;
+	}
+	cout << endl;
 }
 
 int main() {
 
+	int print_node;
 	//Open the file stream. Path names in MS Windows use backslashes (\). Because the backslash is also the string escape character, 
 	//it must be doubled. If the full path is not given, most systems will look in the directory that contains the object program.
 
-	inFile.open("C:\\Users\\ryanr\\Desktop\\MCAST Degree 2\\Engineering Project (2)\\DIjkstra\\DIjkstra Implementation\\dijkstra2.txt");
+	inFile.open("C:\\Users\\ryanr\\Desktop\\MCAST Degree 2\\Engineering Project (2)\\DIjkstra\\DIjkstra Implementation\\dijkstra.txt");
 
 	//Check that the file was opened.For example, the open fails if the file doesn't exist, or if it can't be read 
 	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
@@ -167,23 +222,19 @@ int main() {
 	for (int i = 1; i <= N; i++) {
 		cout << "Distance from Node 1 to Node " << i << " is: " << distances[i] << endl;
 	}
-	cout << endl;
 
 	//function to print paths
 	printPaths();
+
+	cout << "Enter node to print path to that node " << endl;
+	while (cin >> print_node)
+	{
+		for (int i = 0; i < all_paths[print_node - 1].size(); ++i)
+		{
+				cout << all_paths[print_node - 1][i];	
+		}
+		cout << endl;
+		
+	}
 }
 
-//the following loop prints out the path_matrix which was used to extract all the shortest paths.
-//there is enough information in the path matrix to extract the shortest path, however doing so was a problem we encountered.
-//int i = 0;
-//for (int row_node = 1; row_node <= N; row_node++) {
-//	for (int col_path = 1; col_path <= N; col_path++) {
-//		if (i % 7 == 0) {
-//			cout << endl;
-//		}
-//		i++;
-//		cout << path_matrix[row_node][col_path];
-//	}
-//}
-//cout << endl;
-//cout << endl;
