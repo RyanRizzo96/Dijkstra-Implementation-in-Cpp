@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -24,14 +25,41 @@ vector<int> extracted_path;
 vector<vector<int>> all_paths(7,  vector<int> (10));
 
 void writeFile() {
+	int nodes;
+	int input;
+	int input_count = 0;
 
+	outFile.open("C:\\Users\\ryanr\\Desktop\\MCAST Degree 2\\Engineering Project (2)\\DIjkstra\\DIjkstra Implementation\\dijkstra3.txt");
+
+	if (outFile.is_open())
+	{
+		cout << "Enter Number of nodes present. Press 'x' to exit: " << endl;
+		cin >>  nodes;
+		outFile << nodes << endl;
+
+		
+		cout << endl << "Enter correct input type to describe map (1 2 30): " << endl;
+
+		while (cin >> input) {
+			input_count++;
+
+			outFile << input << " ";
+
+			if (input_count % 3 ==  0) {
+				outFile << endl;
+			}
+		}
+		cout << endl;
+	}
+	else cout << "Unable to open file\n" << endl;
+	//outFile.close();
 }
 
 void readFile() {
 	//Open the file stream. Path names in MS Windows use backslashes (\). Because the backslash is also the string escape character, 
 	//it must be doubled. If the full path is not given, most systems will look in the directory that contains the object program.
 
-	inFile.open("C:\\Users\\ryanr\\Desktop\\MCAST Degree 2\\Engineering Project (2)\\DIjkstra\\DIjkstra Implementation\\dijkstra2.txt");
+	inFile.open("C:\\Users\\ryanr\\Desktop\\MCAST Degree 2\\Engineering Project (2)\\DIjkstra\\DIjkstra Implementation\\dijkstra3.txt");
 
 	//Check that the file was opened.For example, the open fails if the file doesn't exist, or if it can't be read 
 	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
@@ -213,6 +241,8 @@ void printPaths() {
 }
 
 int main() {
+
+	writeFile();
 
 	//reading from file and setting matrices accordingly
 	readFile();
