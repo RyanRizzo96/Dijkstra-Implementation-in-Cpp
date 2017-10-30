@@ -26,21 +26,26 @@ vector<vector<int>> all_paths(7,  vector<int> (10));
 
 void writeFile() {
 	int nodes;
-	int input;
+	//int input;
 	int input_count = 0;
 
 	outFile.open("C:\\Users\\ryanr\\Desktop\\MCAST Degree 2\\Engineering Project (2)\\DIjkstra\\DIjkstra Implementation\\dijkstra3.txt");
 
 	if (outFile.is_open())
 	{
-		cout << "Enter Number of nodes present. Press 'x' to exit: " << endl;
+		cout << "Enter Number of nodes present. Enter '0' to exit: " << endl;
 		cin >>  nodes;
 		outFile << nodes << endl;
 
 		
 		cout << endl << "Enter correct input type to describe map (1 2 30): " << endl;
 
-		while (cin >> input) {
+		for (int input;  cin >> input;) {
+			
+			if (input == 0) {
+				break;
+			}
+
 			input_count++;
 
 			outFile << input << " ";
@@ -52,14 +57,14 @@ void writeFile() {
 		cout << endl;
 	}
 	else cout << "Unable to open file\n" << endl;
-	//outFile.close();
+	outFile.close();
 }
 
 void readFile() {
 	//Open the file stream. Path names in MS Windows use backslashes (\). Because the backslash is also the string escape character, 
 	//it must be doubled. If the full path is not given, most systems will look in the directory that contains the object program.
 
-	inFile.open("C:\\Users\\ryanr\\Desktop\\MCAST Degree 2\\Engineering Project (2)\\DIjkstra\\DIjkstra Implementation\\dijkstra3.txt");
+	inFile.open("C:\\Users\\ryanr\\Desktop\\MCAST Degree 2\\Engineering Project (2)\\DIjkstra\\DIjkstra Implementation\\dijkstra.txt");
 
 	//Check that the file was opened.For example, the open fails if the file doesn't exist, or if it can't be read 
 	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
@@ -253,7 +258,9 @@ int main() {
 	//function to print paths
 	printPaths();
 
-	cout << "Enter node to print path to that node " << endl;
+	cout << "Enter node to print path to that node: " << endl;
+	//cin >> print_node;
+
 	while (cin >> print_node)
 	{
 		for (int i = 0; i < all_paths[print_node - 1].size(); ++i)
@@ -261,7 +268,6 @@ int main() {
 				cout << all_paths[print_node - 1][i];	
 		}
 		cout << endl;
-		
 	}
 }
 
