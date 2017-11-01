@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [{
+        "taskName": "build dijkstra",
+        "type": "shell",
+        "command": "g++",
+        "args": [
+            "-g", "dijkstra.cpp"
+        ],
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        }
+    }]
+}

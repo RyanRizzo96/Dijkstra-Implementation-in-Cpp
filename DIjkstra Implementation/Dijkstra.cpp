@@ -69,11 +69,11 @@ void readFile() {
 
 	//Check that the file was opened.For example, the open fails if the file doesn't exist, or if it can't be read 
 	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
-	if (!inFile) {
-		cerr << "Unable to open file \n";
-		cout << errno;		//call errno to give more insight reagrding the error
-		exit(1);		// call system to stop
-	}
+	// if (!inFile) {
+	// 	cerr << "Unable to open file \n";
+	// 	cout << errno;		//call errno to give more insight reagrding the error
+	// 	exit(1);		// call system to stop
+	// }
 
 	//reading number of nodes
 	inFile >> N;
