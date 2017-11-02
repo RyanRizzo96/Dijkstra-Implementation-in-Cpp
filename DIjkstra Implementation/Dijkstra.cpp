@@ -34,7 +34,7 @@ void writeFile() {
 
 	if (outFile.is_open())
 	{
-		cout << "Enter Number of nodes present. Enter '0' to exit: " << endl;
+		cout << "Enter Number of nodes present. Enter '0' to exit: "  << endl;
 		cin >>  nodes;
 		outFile << nodes << endl;
 
@@ -58,6 +58,7 @@ void writeFile() {
 		cout << endl;
 	}
 	else cout << "Unable to open file\n" << endl; 
+
 	outFile.close();
 }
 
