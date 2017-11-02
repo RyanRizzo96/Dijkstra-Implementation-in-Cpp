@@ -1,7 +1,7 @@
 //Dijkstra Implementation
-//Mark was here 
  
 //#include "C:/Program Files/VS2012Schemas/header.txt"	//directory
+
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -23,15 +23,16 @@ int finish_node;
 int print_node;
 
 vector<int> extracted_path;
-vector<vector<int>> all_paths(7,  vector<int> (10));
+vector<vector<int>> all_paths(7, vector<int>(10));
 
 void writeFile() {
 	int nodes;
 	//int input;
 	int input_count = 0;
 
-	outFile.open("C:\\Users\\Marka\\Desktop\\dijkstra3.txt");
-
+	outFile.open("C:\\Users\\ryanr\\Desktop\\dijkstra\\dijkstra3.txt");
+	//outFile.open("C:\\Users\\Marka\\Desktop\\dijkstra");  //Mark's Path
+	
 	if (outFile.is_open())
 	{
 		cout << "Enter Number of nodes present. Enter '0' to exit: "  << endl;
@@ -57,8 +58,10 @@ void writeFile() {
 		}
 		cout << endl;
 	}
-	else cout << "Unable to open file\n" << endl; 
-
+	else {
+		cout << "Unable to open file\n" << endl;
+		cout << errno;
+	}
 	outFile.close();
 }
 
@@ -66,7 +69,9 @@ void readFile() {
 	//Open the file stream. Path names in MS Windows use backslashes (\). Because the backslash is also the string escape character, 
 	//it must be doubled. If the full path is not given, most systems will look in the directory that contains the object program.
 
-	inFile.open("C:\\Users\\Marka\\Desktop\\dijkstra3.txt");
+
+	inFile.open("C:\\Users\\ryanr\\Desktop\\dijkstra\\dijkstra3.txt");
+	//inFile.open("C:\\Users\\Marka\\Desktop\\dijkstra3");  //Martk's Path
 
 	//Check that the file was opened.For example, the open fails if the file doesn't exist, or if it can't be read 
 	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
