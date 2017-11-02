@@ -1,7 +1,7 @@
 //Dijkstra Implementation
-//Mark was here 
  
 //#include "C:/Program Files/VS2012Schemas/header.txt"	//directory
+
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -31,6 +31,7 @@ void writeFile() {
 	int input_count = 0;
 
 	outFile.open("C:\\Users\\ryanr\\Desktop\\dijkstra\\dijkstra3.txt");
+	//outFile.open("C:\\Users\\Marka\\Desktop\\dijkstra");  //Mark's Path
 	
 	if (outFile.is_open())
 	{
@@ -70,7 +71,7 @@ void readFile() {
 
 
 	inFile.open("C:\\Users\\ryanr\\Desktop\\dijkstra\\dijkstra3.txt");
-
+	//inFile.open("C:\\Users\\Marka\\Desktop\\dijkstra3");  //Martk's Path
 
 	//Check that the file was opened.For example, the open fails if the file doesn't exist, or if it can't be read 
 	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
