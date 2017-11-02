@@ -57,7 +57,7 @@ void writeFile() {
 		}
 		cout << endl;
 	}
-	else cout << "Unable to open file\n" << endl;
+	else cout << "Unable to open file\n" << endl; 
 	outFile.close();
 }
 
