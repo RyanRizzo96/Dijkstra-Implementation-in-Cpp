@@ -30,7 +30,7 @@ void writeFile() {
 	//int input;
 	int input_count = 0;
 
-	outFile.open("c:\\Users\\Marka\\Documents\\MCAST Degree 2nd year\\Final Year Project\\Software\\project soft\\Engineering-Project\\dijkstra3.txt");
+	outFile.open("C:\\Users\\Marka\\Desktop\\dijkstra");
 
 	if (outFile.is_open())
 	{
@@ -57,7 +57,7 @@ void writeFile() {
 		}
 		cout << endl;
 	}
-	else cout << "Unable to open file\n" << endl;
+	else cout << "Unable to open file\n" << endl; 
 	outFile.close();
 }
 
@@ -65,7 +65,7 @@ void readFile() {
 	//Open the file stream. Path names in MS Windows use backslashes (\). Because the backslash is also the string escape character, 
 	//it must be doubled. If the full path is not given, most systems will look in the directory that contains the object program.
 
-	inFile.open("c:\\Users\\Marka\\Documents\\MCAST Degree 2nd year\\Final Year Project\\Software\\project soft\\Engineering-Project\\dijkstra3.txt");
+	inFile.open("C:\\Users\\Marka\\Desktop\\dijkstra3");
 
 	//Check that the file was opened.For example, the open fails if the file doesn't exist, or if it can't be read 
 	//because another program is writing it.A failure can be detected with code like that below using the !(logical not) operator
