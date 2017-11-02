@@ -25,7 +25,7 @@ int print_node;
 vector<int> extracted_path;
 vector<vector<int>> all_paths(7,  vector<int> (10));
 
-void writeFile()  {
+void writeFile() {
 	int nodes;
 	//int input;
 	int input_count = 0;
