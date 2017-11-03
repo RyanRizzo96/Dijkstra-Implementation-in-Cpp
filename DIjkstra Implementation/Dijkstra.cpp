@@ -1,5 +1,5 @@
 // Dijkstra Implementation
-// Version 2.03
+// Version 2.04
  
 //#include "C:/Program Files/VS2012Schemas/header.txt"	//directory
 
@@ -31,8 +31,8 @@ void writeFile() {
 	//int input;
 	int input_count = 0;
 
-	//outFile.open("C:\\Users\\Marka\\Desktop\\dijkstra3");
-	outFile.open("C:\\Users\\ryanr\\Desktop\\dijkstra3.txt");
+	outFile.open("C:\\Users\\Marka\\Desktop\\dijkstra3");
+	//outFile.open("C:\\Users\\ryanr\\Desktop\\dijkstra3.txt");
 
 	if (outFile.is_open())
 	{
