@@ -1,4 +1,5 @@
-//Dijkstra Implementation
+// Dijkstra Implementation
+// Version 2.0
  
 //#include "C:/Program Files/VS2012Schemas/header.txt"	//directory
 
